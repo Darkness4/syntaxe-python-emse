@@ -2,12 +2,11 @@
 """Language Tour: Basics"""
 
 # Imports
-from math import sqrt  # Lov u
-import math  # oui
+from math import sqrt  # ❤️
+import math  # Oui
 import matplotlib.pyplot as plt  # oui
 
-# from matplotlib import *  # Fack u
+# from matplotlib import *  # Fak u
 
 if __name__ == "__main__":  # LE main
-    import mymains  # Complètement illégal, mais permet de garder la
-    # progression de la formation
+    import mymains
