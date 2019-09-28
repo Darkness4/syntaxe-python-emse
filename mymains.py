@@ -7,13 +7,19 @@ from typing import List, Tuple, Dict, Set, Callable
 # Variables et Built-in types
 
 entier: int = 1_000_000
-entier += 1  # etc.
-calc: int = entier**2  # power
-calc: int = entier // 2  # div eucli ou floor division
+entier += 1  # += -= *= **= etc.
+calc: int = entier**2  # Puissance
+calc: int = entier // 2  # Division Euclidienne
 print(calc)
 # Bitwise operators également supportés
+# << shift left
+# >> shift right
+# & and
+# | or
+# ~ not
+# ^ xor
 
-float_var: float = 1.0  # float()
+float_var: float = 1.0
 float_var: float = 5e6
 
 complex_var: complex = complex(1, 2)  # 1 + 2j
@@ -22,15 +28,16 @@ complex_var: complex = 1 + 2j
 bool_var: bool = True
 bool_var: bool = False
 
-string: str = "hey\nman"  # str()
+string: str = "hey\nman"
 
-print("Culcule {} est fait !".format(0.1))
+print("Calcule {} est fait !".format(0.1))  # printf
 print("First letter: {first}. Last letter: {last}.".format(
     last='Z',
     first='A',
 ))
-# voir doc python pour + d'info
-raw_string: str = r"hey\nman"  # => hey\nman
+# Voir doc python pour + d'info
+raw_string: str = r"hey\nman"
+print(raw_string)  # => hey\nman
 
 # Multi-line code
 long_string: str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
@@ -81,22 +88,21 @@ dict_var: Dict[str, str] = {
     'd3ad': 'c0de',
 }  # dict(), mutable
 
-dict_var['new_key']: str = 'new_value'
+dict_var['new_key'] = 'new_value'
 
 set_var: Set[int] = {
     1, 2, 3
 }  # Sans ordre, de toute façon personne l'utilise, mutable
 
 # Loops
-# indentation 4 espaces (norme PEP8)
 for i in range(10):
     if i < 1:
-        "do if"
+        print("do if")
     else:
-        "else"
-        break  # Go to else
+        print("else")
+        break  # Skip else.
 else:
-    "I came from the break"
+    print("I run when for is entirely finished.")
 
 for idx in range(len(list_var)):  # Shitty code
     print(idx)
@@ -111,6 +117,12 @@ L = [2, 4, 6, 8, 10]
 R = [3, 6, 9, 12, 15]
 for lval, rval in zip(L, R):  # Parcourir 2 listes en même temps
     print(lval, rval)
+
+# 2 3
+# 4 6
+# 6 9
+# 8 12
+# 10 15
 
 for value in tuple_var:
     print(value)
@@ -128,9 +140,9 @@ for key, value in dict_var.items():
 while False:
     if 2 is not int:
         print("get out of this hell")
-        break
+        break  # Termine la boucle
     if 1 is int:
-        continue
+        continue  # Termine l'itération
     print("i guess i'm skipped if 1 is int")
 
 # Compare
@@ -140,7 +152,7 @@ if 15 < a < 30:  # in between
 
 # or, and, is
 if (15 < a < 30) or (a == "16" and a is not str):
-    print("do some sh*t")
+    print("do")
 
 # in
 if a in [15, 16, 17]:
@@ -169,6 +181,7 @@ def function(
     De toute façon personne l'aime.
 
     Exemple markdown:
+
     ```
     print(function('bull', 1, optionnel))  # => None
     ```
@@ -186,13 +199,13 @@ def function(
 MY_KWARGS = {"arg6": 6, "arg7": "sept", "arg8": 8}
 MY_ARGS = ('args var 4', 'args var 5')  # ou list()
 print(function('1', 2, *MY_ARGS, optionnel="Le 3e", **MY_KWARGS))
-# Se rapeller de l'ordre : (ordonné et sans nom en 1er, ensuite le unpack
+# Se rappeler de l'ordre : (ordonné et sans nom en 1er, ensuite le unpack
 # *args, keyword et optionnel en 3e et enfin le unpack keyword **kwargs)
 
 # -- Pause --
 
 # Lambdas
-add_lambda = lambda x, y: x + y  # A ne pas faire : var prend lambda
+
 add_lambda: function = lambda x, y: x + y  # Avec le type hint
 add_lambda: Callable[..., int] = lambda x, y: x + y
 add_lambda: Callable[[int, int], int] = lambda x, y: x + y
@@ -221,7 +234,7 @@ for val in map(lambda val: val**2, list_seconde):  # ❤️
 for val in filter(lambda val: (val % 2) == 0, list_seconde):  # ❤️
     print(val, end=' ')  # => 60
 
-sum_var: int = reduce(lambda a, b: a + b, [1, 2, 3, 4])  # => 1
+sum_var: int = reduce(lambda a, b: a + b, [1, 2, 3, 4])  # => 10
 # reduce est uniquement disponible via le package functools
 
 # Unpack list
@@ -255,7 +268,7 @@ try:
         raise MyException("My Exception")
     else:
         raise Exception("Unknow case")
-except MyException as error:  # Pas conseillé => trop générique
+except MyException as error:
     print(error)
 else:
     pass

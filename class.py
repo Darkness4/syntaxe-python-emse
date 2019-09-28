@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Language Tour: Class"""
+import abc
 
 
 # Class
@@ -34,6 +35,9 @@ class Complex:
         self.realpart = realpart  # instance var à initialiser
         self.imagpart = imagpart
 
+    def method(self):
+        """do"""
+
     # Getter : Read only use case
     # getter
     @property
@@ -59,6 +63,7 @@ class Complex:
     @staticmethod
     def static_func(arg: int) -> int:  # static
         """doc"""
+        print(Complex.__private_property)
         return arg
 
     @classmethod
@@ -69,6 +74,7 @@ class Complex:
         """doc"""
         return cls(complex_var.real, complex_var.imag)
 
+    @abc.abstractmethod
     def abstract_func(self, arg: int):
         """doc"""
         raise NotImplementedError
@@ -92,7 +98,10 @@ if __name__ == "__main__":
     complex_class.password = "my password"
     print(complex_class.password)
     print(complex_class.readme)
-    # print(complex_class.abstract_func(10))  # => NotImplementedError
+    try:
+        complex_class.abstract_func(10)  # => NotImplementedError
+    except NotImplementedError as error:
+        print(error)
     print(Complex.static_func(100))
 
     complex_class2 = HeritFrom(1, 2)
