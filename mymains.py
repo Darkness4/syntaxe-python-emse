@@ -2,7 +2,7 @@
 """Language Tour: Basics"""
 
 from functools import reduce
-from typing import List, Tuple, Dict, Set
+from typing import List, Tuple, Dict, Set, Callable
 
 # Variables et Built-in types
 
@@ -192,13 +192,20 @@ print(function('1', 2, *MY_ARGS, optionnel="Le 3e", **MY_KWARGS))
 # -- Pause --
 
 # Lambdas
-add_lambda: function = lambda x, y: x + y  # A ne pas faire : var prend lambda
-add_lambda = lambda x, y: x + y  # Sans le type hint
+add_lambda = lambda x, y: x + y  # A ne pas faire : var prend lambda
+add_lambda: function = lambda x, y: x + y  # Avec le type hint
+add_lambda: Callable[..., int] = lambda x, y: x + y
+add_lambda: Callable[[int, int], int] = lambda x, y: x + y
+
+# NOTE: Ici le type hint est [..., ReturnType]
+# NOTE 2: Ici, ... ou communement Ellipsis litéral permet de représenter une
+# partie d'une list qui n'est pas représentable.
+
 print(add_lambda(1, 2))  # Fonction sans nom (x, y) => x + y
 
 
 # Equivalent
-def add(x, y):
+def add(x: int, y: int) -> int:
     """Littéralement, ajouter"""
     return x + y  # Même fonction avec un nom
 

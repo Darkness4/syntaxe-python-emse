@@ -4,7 +4,7 @@
 from typing import List, Tuple, Set, Generator, Dict, Iterable, Iterator
 
 if __name__ == "__main__":
-    # Ternary cmp
+    # Ternary compare
     val: int = 32
     print(val if val >= 0 else -val)
 
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     G: Iterable[int] = (n**2 for n in range(12))  # Implique
     G: Iterator[int] = (n**2 for n in range(12))  # Equivalent
     list(G)  # => [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
-    list(G)  # => []
+    list(G)  # => []  # Car, itérable qu'une seule fois !
 
     # NOTE: Le type hint indique ici : [YieldType, SendType, ReturnType]
     # Le choix dépend de l'usage de la fonction.
