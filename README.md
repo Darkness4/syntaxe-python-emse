@@ -778,8 +778,6 @@ Pour rappel, une propriété **publique** est accessible partout, une propriét�
 
 En dehors de ça, on initialise les **attributs statique**, c'est-à-dire, des attributs unique à la classe.
 
-#### Méthodes
-
 Il est possible de faire des méthodes similairement à des fonctions.
 
 ```python
@@ -835,9 +833,9 @@ Pour faire des **getters et setters**:
         self.__encrypted_password = value
 ```
 
-#### Héritance
+#### Héritage
 
-L'héritance permet d'obtenir les méthodes et attributs du parent. C'est aussi simple que cela est dit.
+L'héritage permet d'obtenir les méthodes et attributs du parent. Autrement dit,
 
 ```python
 class Person:
@@ -911,3 +909,67 @@ TypeError: Can't instantiate abstract class Person with abstract methods age, pa
 ```
 
 Notez que dans cette exemple, je n'ai pas défini `age`.
+
+#### Polymorphisme
+
+Le **polymorphisme** permet l'utilisation de la même méthode malgré que la signature de l'objet est différente.
+
+Exemple :
+
+```python
+class PersonDroitier(): 
+    def status(self): 
+        print("Je suis droitier.")
+
+
+class PersonGaucher(): 
+    def status(self): 
+        print("Je suis gaucher.") 
+
+
+droitier = PersonDroitier() 
+gaucher = PersonGaucher() 
+for person in (droitier, gaucher): 
+    person.status() 
+```
+
+```python
+Je suis droitier.
+Je suis gaucher.
+```
+
+Grâce à l'**abstraction** et à l'**héritage**, le polymorphisme devient un des pilier les plus importants de l'OOP.
+
+En utilisant un `override`, on obtient :
+
+````python
+from abc import ABC, abstractmethod
+
+
+class Person(ABC):
+    @abstractmethod
+    def status(self):
+        raise NotImplementedError
+
+
+class PersonDroitier(Person): 
+    def status(self): 
+        print("Je suis droitier.")
+
+
+class PersonGaucher(Person): 
+    def status(self): 
+        print("Je suis gaucher.") 
+
+
+droitier = PersonDroitier() 
+gaucher = PersonGaucher() 
+for person in (droitier, gaucher): 
+    person.status() 
+````
+
+```python
+Je suis droitier.
+Je suis gaucher.
+```
+
