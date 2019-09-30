@@ -2,6 +2,9 @@
 
 # Syntaxe Python
 
+[TOC]
+
+<div style="page-break-after: always;"></div>
 ## Python Setup
 
 ### Installer Python (recommandé)
@@ -94,8 +97,15 @@ $ conda activate env_name
 
 - `CTRL+P`
 - `Remote-Containers: Reopen Folder in Container`
-- Et c'est parti pour coder !
+- Configurez votre environnement
+- `apt update && apt install python3-pip`
+  - `pip install -r requirements.txt`
+  - Choisissez `/usr/local/bin/python3` en tant qu'interpréteur
+- Installez pylama/pylint et autopep8/yapf proposé par VS Code
+- Ne reste plus qu'à coder !
 
+
+<div style="page-break-after: always;"></div>
 ## Normes de syntaxe
 
 ### Normes de documentation
@@ -196,6 +206,7 @@ $ conda activate env_name
       """
   ```
 
+<div style="page-break-after: always;"></div>
 ### Bonus : Sphinx et napoleon
 
 Il est possible de générer des PDFs grâce aux packages [Sphinx](https://www.sphinx-doc.org/en/master/) et [Napoléon](http://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html).
@@ -300,6 +311,7 @@ Il ne reste plus qu'à le publier !
 
 - [Google Python Style Guide](http://google.github.io/styleguide/pyguide.html)
 
+<div style="page-break-after: always;"></div>
 ## Outillage
 
 Je ne mettrais, ici, que les instructions pour installez les outils nécessaires pour le codestyle et docstyle.
@@ -333,6 +345,7 @@ Je ne mettrais, ici, que les instructions pour installez les outils nécessaires
 
 [kite.com](https://kite.com/)
 
+<div style="page-break-after: always;"></div>
 ## Language Tour
 
 ### Imports
@@ -443,6 +456,7 @@ set_var: Set[int] = {
 }  # Sans ordre, de toute façon personne l'utilise, mutable
 ```
 
+<div style="page-break-after: always;"></div>
 ### Loops
 
 ```python
@@ -552,6 +566,7 @@ print(function('1', 2, *MY_ARGS, optionnel="Le 3e", **MY_KWARGS))
 
 Se rappeler de l'ordre : (ordonné et sans nom en 1er, ensuite le unpack *args, keyword et optionnel en 3e et enfin le unpack keyword **kwargs)
 
+<div style="page-break-after: always;"></div>
 ### Lambda et list map, filter et reduce
 
 Un lambda est une fonction qui n'a pas de nom. Il est possible de lui donner un nom avec une attribution `=` mais, en terme de code style, ce n'est pas conseillé. Généralement, on utilise un lambda pour des opérations nécessitant une `function` ou `Callable` en argument.
@@ -602,6 +617,7 @@ print(32, *list_seconde)
 print(32, 60, 267, 472859)  # Même chose
 ```
 
+<div style="page-break-after: always;"></div>
 ### Error handling
 
 Capturer les erreurs d'exceptions.
@@ -641,6 +657,7 @@ finally:
     pass
 ```
 
+<div style="page-break-after: always;"></div>
 ### Generators
 
 Les `generators` sont des `Iterable`, c'est-à-dire, parcourable via boucle `for`.
@@ -736,6 +753,7 @@ def gen_primes(max_range: int) -> Iterable[int]:
 97
 ```
 
+<div style="page-break-after: always;"></div>
 ### Classes et les 4 piliers de l'OOP
 
 #### Encapsulation
@@ -833,6 +851,7 @@ Pour faire des **getters et setters**:
         self.__encrypted_password = value
 ```
 
+<div style="page-break-after: always;"></div>
 #### Héritage
 
 L'héritage permet d'obtenir les méthodes et attributs du parent. Autrement dit,

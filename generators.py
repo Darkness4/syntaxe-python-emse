@@ -31,7 +31,6 @@ if __name__ == "__main__":
     # NOTE: Le type hint indique ici : [YieldType, SendType, ReturnType]
     # Le choix dépend de l'usage de la fonction.
 
-
     def gen() -> Iterable[int]:
         """Generates x^2 from x=0 to x=11."""
         for idx in range(12):
