@@ -35,6 +35,9 @@ print("First letter: {first}. Last letter: {last}.".format(
     last='Z',
     first='A',
 ))
+last: str = 'Z'
+first: str = 'A'
+print(f'First letter: {first}. Last letter: {last}')
 # Voir doc python pour + d'info
 raw_string: str = r"hey\nman"
 print(raw_string)  # => hey\nman

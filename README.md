@@ -16,20 +16,66 @@ apt update
 apt install python3 python3-venv python3-pip
 ```
 
-Il est également possible d'installer anaconda. Mais autant utiliser celui qui est inclus sur Linux.
+Il est également possible d'installer [Anaconda](https://www.anaconda.com/distribution/). Mais autant utiliser celui qui est inclus sur Linux.
 
 #### Windows
 
 - Installez [Anaconda](https://www.anaconda.com/distribution/) ou [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
+## Installer un IDE
+
+### Instructions (Pycharm ou IntelliJ IDEA)
+
+- Installez [Pycharm](https://www.jetbrains.com/pycharm/) ou [IntelliJ IDEA](https://www.jetbrains.com/idea/).
+- (IntelliJ IDEA) Installez le plugin [Python](https://plugins.jetbrains.com/plugin/631-python/) (ou [Python Community](https://plugins.jetbrains.com/plugin/7322-python-community-edition/), su vous utilisez IntelliJ IDEA Community)
+
+### Instructions (VS Code)
+
+- Installez [VS Code](https://code.visualstudio.com/) ou [VS Code Insiders](https://code.visualstudio.com/insiders/)
+
+- Installez l'extension [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+
+- Installez pylama ou pylint avec yapf ou autopep8
+
+  ```sh
+  pip install pylama
+  pip install pylint
+  pip install yapf
+  pip install autopep8
+  ```
+
+- (pylama) Ouvrez les settings (`CTRL + ,`) et recherchez `python.linting.pylamaEnabled`, et **activez-le**.
+
+- (optionnel) Mode brutal : Ouvrez les settings (`CTRL + ,`) et recherchez `‘editor.formatOnSave`, et **activez-le.**
+
+- (optionnel) Mode brutal : Ouvrez les settings (`CTRL + ,`) et recherchez `python.linting.pylintUseMinimalCheckers`, et **désactivez-le.**
+
+- (optionnel) Réglez votre formatter : Ouvrez les settings (`CTRL + ,`) et recherchez `python.formatting.provider` et **choisissez**.
+
+### Instructions (Spyder)
+
+- Installez [Anaconda](https://www.anaconda.com/distribution/) ou [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
+
+- ```sh
+  conda install spyder
+  ```
+
+  Ou prendre la version Release Candidate pour profiter des dernières features :
+
+- ```sh
+   conda install -c spyder-ide spyder=4.0.0rc2
+  ```
+
 ### Faire un environnement virtuel dédié
+
+Un environnement dédié permet de séparer la configuration globale de la configuration locale. 
 
 #### Avec python-venv
 
 ##### Unix/GNU/XNU
 
 ```sh
-$ python3 -m virtualenv env_name
+$ python3 -m virtualenv env_name [--python=/usr/bin/python3.6]
 $ . ./env_name/bin/activate
 (env_name)$ pip install [dépendances]
 (env_name)$ # Codez ici
@@ -39,8 +85,8 @@ $ . ./env_name/bin/activate
 ##### Windows
 
 ```bat
-> python -m virtualenv env_name
-> env_name\Scripts\activate
+> python -m virtualenv env_name [--python=CHEMIN_VERS\\Python36\\bin\\python.exe]
+> env_name\Scripts\activate.bat
 (env_name)> pip install [dependances]
 (env_name)> # Codez ici
 (env_name)> deactivate
@@ -48,24 +94,41 @@ $ . ./env_name/bin/activate
 
 #### Conda env
 
-##### Unix/GNU/XNU
+##### Windows/Unix/GNU/XNU
 
 ```sh
-$ conda create -n env_name
+$ conda create -n env_name [python=3.6]
 $ conda activate env_name
 (env_name)$ conda install [dépendances]
 (env_name)$ # Codez ici
 (env_name)$ conda deactivate
 ```
 
-##### Windows
+#### Example : Environnement pour le machine learning
 
-```bat
-> conda create -n env_name
-> conda activate env_name
-(env_name)> conda install [dependances]
-(env_name)> # Codez ici
-(env_name)> conda deactivate
+Avant de commencer, sachez qu'il faut avoir une carte graphique NVIDIA et installer [CUDA](https://developer.nvidia.com/cuda-toolkit-archive) et [cuDNN](https://developer.nvidia.com/cudnn) pour faire du machine learning.
+
+##### python-venv
+
+```sh
+$ sudo apt install python3.6
+$ python3 -m virtualenv ml_env --python=/usr/bin/python3.6
+$ . ./ml_env/bin/activate
+(ml_env)$ pip install numpy scipy matplotlib pandas tensorflow-gpu keras pylint autopep8 pylama yapf
+(ml_env)$ # Codez ici
+(ml_env)$ deactivate
+```
+
+##### conda
+
+```sh
+$ conda create -n ml_env python=3.6
+$ conda activate ml_env
+(ml_env)$ conda install numpy scipy matplotlib pandas
+(ml_env)$ conda install  -c spyder-ide spyder=4.0.0rc2
+(ml_env)$ pip install tensorflow-gpu keras pylint autopep8 pylama yapf  # Officiel
+(ml_env)$ # Codez ici
+(ml_env)$ conda deactivate
 ```
 
 ### Bonus : Docker et VS Code Remote Container
@@ -99,7 +162,7 @@ $ conda activate env_name
 - `Remote-Containers: Reopen Folder in Container`
 - Configurez votre environnement
 - `apt update && apt install python3-pip`
-  - `pip install -r requirements.txt`
+  - `pip install -r requirements.txt` ou `pip install [dépendances]`
   - Choisissez `/usr/local/bin/python3` en tant qu'interpréteur
 - Installez pylama/pylint et autopep8/yapf proposé par VS Code
 - Ne reste plus qu'à coder !
