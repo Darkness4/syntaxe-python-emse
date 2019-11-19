@@ -430,6 +430,8 @@ if __name__ == "__main__":
 ### Variable et Built-in types
 
 ```python
+from typing import List, Tuple, Dict, Set, Callable  # Typage des variables
+
 entier: int = 1_000_000
 entier += 1  # += -= *= **= etc.
 calc: int = entier**2  # Puissance
@@ -454,12 +456,16 @@ bool_var: bool = False
 
 string: str = "hey\nman"
 
-print("Culcule {} est fait !".format(0.1))
+last: str = 'Z'
+first: str = 'A'
+print(f'First letter: {first}. Last letter: {last}')
+print("Calcule {} est fait !".format(0.1))
 print("First letter: {first}. Last letter: {last}.".format(
-    last='Z',
-    first='A',
+    last=last,
+    first=first,
 ))
 # Voir doc python pour + d'info
+
 raw_string: str = r"hey\nman"
 print(raw_string)  # => hey\nman
 
@@ -474,7 +480,7 @@ Morbi posuere ac neque a tincidunt. Phasellus maximus quam nec urna sagittis\
 lobortis. Nullam non pharetra augue. Donec sagittis orci eu massa finibus\
 semper. Donec nisi lorem, laoreet in arcu a, scelerisque euismod dui."
 
-# => print 1 line
+# => print 1 line, Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 
 multi_line_string: str = """Lorem ipsum dolor sit amet, consectetur adipiscing
 elit. Aenean eget aliquam risus. Sed ac quam vitae enim aliquet auctor.
@@ -487,6 +493,10 @@ urna sagittis lobortis. Nullam non pharetra augue. Donec sagittis orci eu
 massa finibus semper. Donec nisi lorem, laoreet in arcu a, scelerisque
 euismod dui."""
 # => print multi-line
+# Lorem ipsum dolor sit amet, consectetur adipiscing
+# elit. Aenean eget aliquam risus. Sed ac quam vitae enim aliquet auctor.
+# Aliquam hendrerit dictum eros nec sagittis. Quisque eleifend vitae arcu
+# ...
 
 # Multi-line code (math)
 nombre: int = (
@@ -523,7 +533,6 @@ set_var: Set[int] = {
 ### Loops
 
 ```python
-# Loops
 # Loops
 for i in range(10):
     if i < 1:
@@ -569,7 +578,7 @@ for key, value in dict_var.items():
 while False:
     if 2 is not int:
         print("get out of this hell")
-        break  # Termine la boucle
+        break  # Sort de la boucle
     if 1 is int:
         continue  # Termine l'itération
     print("i guess i'm skipped if 1 is int")
@@ -597,29 +606,38 @@ if a in [15, 16, 17]:
 ### Fonctions
 
 ```python
+# Functions
 def function(
         dynamic,
         type_hint_decimal: float,
         *args,  # Surplus d'argument
         optionnel="moi",
-        **kwargs) -> int:  # Surplus d'argument key=word
+        **kwargs,
+) -> int:  # Surplus d'argument key=word
     """
     documentation: description rapide
 
-
     Description longue.
-    Cette function fait que dalle.
-    De toute façon personne l'aime.
+    Cette fonction affiche l'argument dynamic en premier.
+    Puis type_hint_decimal, et ensuite, optionnel.
+    
+    Elle affiche également tout les arguments positionnel en surplus.
+    Elle affiche également tout les arguments keyword en surplus.
 
+    Exemple en markdown:
+
+    ```
+    print(function('1', 1, optionnel))  # => None
+    ```
     """  # Ceci est stocké dans une variable __doc__ (privé)
-print(dynamic)
-print(type_hint_decimal)
-print(optionnel)
-for arg in args:
-    print(arg)
-for name, kwarg in kwargs.items():
-    print(name, kwarg)
-return int(dynamic)  # Parce que dynamic est dynamic, faut parser en int
+    print(dynamic)
+    print(type_hint_decimal)
+    print(optionnel)
+    for arg in args:
+        print(arg)
+    for name, kwarg in kwargs.items():
+        print(name, kwarg)
+    return int(dynamic)  # Parce que dynamic est dynamic, faut parser en int
 
 
 MY_KWARGS = {"arg6": 6, "arg7": "sept", "arg8": 8}
@@ -627,12 +645,19 @@ MY_ARGS = ('args var 4', 'args var 5')  # ou list()
 print(function('1', 2, *MY_ARGS, optionnel="Le 3e", **MY_KWARGS))
 ```
 
-Se rappeler de l'ordre : (ordonné et sans nom en 1er, ensuite le unpack *args, keyword et optionnel en 3e et enfin le unpack keyword **kwargs)
+Se rappeler de l'ordre :
+
+1. Arguments ordonnés, positionnés
+2. *args, arguments positionnés en trop
+3. Arguments optionnels, keyword
+4. *kwargs, arguments keyword en trop
 
 <div style="page-break-after: always;"></div>
 ### Lambda et list map, filter et reduce
 
-Un lambda est une fonction qui n'a pas de nom. Il est possible de lui donner un nom avec une attribution `=` mais, en terme de code style, ce n'est pas conseillé. Généralement, on utilise un lambda pour des opérations nécessitant une `function` ou `Callable` en argument.
+##### Lambda
+
+Un lambda est **une fonction qui n'a pas de nom**. Il est possible de lui donner un nom avec une attribution `=` mais, en terme de code style, ce n'est pas conseillé. Généralement, on utilise un lambda pour des opérations nécessitant une `function` ou `Callable` en argument.
 
 ```python
 add_lambda: function = lambda x, y: x + y  # Avec le type hint
@@ -647,21 +672,25 @@ print(add_lambda(1, 2))  # Fonction sans nom (x, y) => x + y
 
 # Equivalent
 def add(x: int, y: int) -> int:
-    """Littéralement, ajouter"""
+    """Littéralement, ajouter."""
     return x + y  # Même fonction avec un nom
 
 ```
+
+##### Opération sur les list avec des lambda
+
+**`map`, `filter` et `reduce` sont les fonctions à connaitre par ❤️.**
 
 `map` est un opérateur permettant de générer un `Itérable` nommé `map` en appliquant une `function` sur la liste cible.
 
 `filter` est un opérateur permettant de générer un `Itérable` nommé `filter` en filtrant la liste cible via une condition `bool`.
 
-`reduce`, accessible uniquement via `from functools import reduce`, est un opérateur qui combine les éléments d'une collection en utilisant un fonction. La fonction doit être de la forme `(valeur accumulé, nouvelle valeur) ⇒ nouvelle valeur accumulé`
+`reduce`, accessible uniquement via `from functools import reduce`, est un opérateur qui combine les éléments d'une collection en utilisant un fonction. La fonction doit être de la forme `(old_store, new_value) ⇒ new_store`.
 
 ```python
 list_seconde: List[int] = [60, 267, 472859]
-# => [1, 4, 7880]
 list_minutes: List[int] = list(map(lambda val: val // 60, list_seconde))
+# => [1, 4, 7880]
 
 for val in map(lambda val: val**2, list_seconde):  # ❤️
     print(val, end=' ')  # => 3600 71289 223595633881
@@ -669,13 +698,14 @@ for val in map(lambda val: val**2, list_seconde):  # ❤️
 for val in filter(lambda val: (val % 2) == 0, list_seconde):  # ❤️
     print(val, end=' ')  # => 60
 
-sum_var: int = reduce(lambda a, b: a + b, [1, 2, 3, 4])  # => 10
+sum_var: int = reduce(lambda a_sum, b: a_sum + b, [1, 2, 3, 4])  # => 10
 # reduce est uniquement disponible via le package functools
 ```
 
 Unpack list :
 
 ```python
+list_seconde: List[int] = [60, 267, 472859]
 print(32, *list_seconde)
 print(32, 60, 267, 472859)  # Même chose
 ```
@@ -750,11 +780,13 @@ Donc pour les `generators` :
 
 ```python
 G: Generator[int, None, None] = (n**2 for n in range(12))
-G: Iterable[int] = (n**2 for n in range(12))  # Implique
-G: Iterator[int] = (n**2 for n in range(12))  # Equivalent
+# Typage Generator[T, None, None] implique :
+G: Iterable[int] = (n**2 for n in range(12))
+# Equivalent à
+G: Iterator[int] = (n**2 for n in range(12))
 ```
 
-Un générateur est utilisable qu'une seule fois ! Comme dans un boucle `for`.
+Un générateur **n'est utilisable qu'une seule fois !** Comme dans une boucle `for`.
 
 ```python
 list(G)  # => [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121]
@@ -771,7 +803,7 @@ def gen() -> Iterable[int]:
         # on en retourne plusieurs
 ```
 
-**`yield` permet de retourner plusieurs valeurs !**
+**`yield` permet de retourner plusieurs valeurs ! Elle n'arrête donc pas la fonction !**
 
 Une belle utilisation d'un générateur est, par exemple, pour les nombres premiers :
 
@@ -786,7 +818,7 @@ def gen_primes(max_range: int) -> Iterable[int]:
 ```
 
 ```python
->>> for prime in gen_primes(100):
+>>> for prime in gen_primes(50):
 ...     print(prime)
 ... 
 2
@@ -804,16 +836,6 @@ def gen_primes(max_range: int) -> Iterable[int]:
 41
 43
 47
-53
-59
-61
-67
-71
-73
-79
-83
-89
-97
 ```
 
 <div style="page-break-after: always;"></div>
@@ -841,6 +863,7 @@ class Complex:
     __encrypted_password : str
         Propriété privée, accessible uniquement sur soi
     """
+    # Static properties / Class variables
     public_property = "Hey i'm public"  # Read and write everywhere
     _protected_property = "Hey i'm protected"  # Read and write from subclass
     __private_property = "Hey i'm private"  # Read and write self
@@ -848,6 +871,7 @@ class Complex:
     def __init__(self, realpart: float, imagpart: float):  # Constructor
         if realpart == 0:
             raise ValueError("This is retarded but 0 is not allowed")
+        # Instance attributes
         self.realpart = realpart  # instance var à initialiser
         self.imagpart = imagpart
 
@@ -855,9 +879,9 @@ class Complex:
 
 Pour rappel, une propriété **publique** est accessible partout, une propriété **protégée** est accessible uniquement aux méthodes et aux classes héritières. Une propriété **privée** est accessible uniquement dans la classe.
 
-\_\_init\_\_ est le constructeur par défaut, les propriétés variables peuvent être initialisé, à l'instance, ici.
+`__init__` est le **constructeur par défaut**, les propriétés variables peuvent être initialisé, à l'instance.
 
-En dehors de ça, on initialise les **attributs statique**, c'est-à-dire, des attributs unique à la classe.
+En dehors de ça, on initialise les **attributs statique** ou **class variables**, c'est-à-dire, des attributs unique à la classe.
 
 Il est possible de faire des méthodes similairement à des fonctions.
 
@@ -866,7 +890,7 @@ Il est possible de faire des méthodes similairement à des fonctions.
         """do"""
 ```
 
-Les méthodes statiques, **indépendante le l'instance**, s'initialise avec le décorateur `@staticmethod`. On n'utilise pas `self`, vu que `self` peut ne pas être instanciais. Il faut appeler soi-même pour accéder à une variable statique, exemple : `Complex.__private_property`
+Les **méthodes statiques**, **indépendante le l'instance**, s'initialise avec le décorateur `@staticmethod`. On n'utilise pas `self`, vu que `self` peut ne pas être instanciais. Il faut appeler soi-même pour accéder à une variable statique, exemple : `Complex.__private_property`
 
 ```python
 	@staticmethod
@@ -876,7 +900,7 @@ Les méthodes statiques, **indépendante le l'instance**, s'initialise avec le d
         return arg
 ```
 
-Les `@classmethod` permettent de s'instancier à partir de soi-même, généralement pour faire des **constructeurs nommés**, comme par exemple les célèbre, `json.parse()` ou `Model.from_json()`.
+Les **`@classmethod`** permettent de s'instancier à partir de soi-même, généralement pour faire des **constructeurs nommés**, comme par exemple les célèbre, `json.parse()` ou `Model.from_json()`.
 
 ```python
 	@classmethod

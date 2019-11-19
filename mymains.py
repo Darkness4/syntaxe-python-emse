@@ -174,7 +174,8 @@ def function(
         type_hint_decimal: float,
         *args,  # Surplus d'argument
         optionnel="moi",
-        **kwargs) -> int:  # Surplus d'argument key=word
+        **kwargs,
+) -> int:  # Surplus d'argument key=word
     """
     documentation: description rapide
 
