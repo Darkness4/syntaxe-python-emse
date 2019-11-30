@@ -63,7 +63,7 @@ Il est également possible d'installer [Anaconda](https://www.anaconda.com/distr
   Ou prendre la version Release Candidate pour profiter des dernières features :
 
 - ```sh
-   conda install -c spyder-ide spyder=4.0.0rc2
+   conda install -c spyder-ide spyder
   ```
 
 ### Faire un environnement virtuel dédié
@@ -125,7 +125,7 @@ $ . ./ml_env/bin/activate
 $ conda create -n ml_env python=3.6
 $ conda activate ml_env
 (ml_env)$ conda install numpy scipy matplotlib pandas
-(ml_env)$ conda install  -c spyder-ide spyder=4.0.0rc2
+(ml_env)$ conda install  -c spyder-ide spyder
 (ml_env)$ pip install tensorflow-gpu keras pylint autopep8 pylama yapf  # Officiel
 (ml_env)$ # Codez ici
 (ml_env)$ conda deactivate
@@ -534,14 +534,16 @@ set_var: Set[int] = {
 
 ```python
 # Loops
-for i in range(10):
+for i in collections:
     if i < 1:
         print("do if")
+    elif i > 2:
+        print("do elif")
     else:
         print("else")
         break  # Skip else.
 else:
-    print("I run when for is entirely finished.")
+    print("I run when i is not found in collections")
 
 for idx in range(len(list_var)):  # NON
     print(idx)
@@ -624,11 +626,6 @@ def function(
     Elle affiche également tout les arguments positionnel en surplus.
     Elle affiche également tout les arguments keyword en surplus.
 
-    Exemple en markdown:
-
-    ```
-    print(function('1', 1, optionnel))  # => None
-    ```
     """  # Ceci est stocké dans une variable __doc__ (privé)
     print(dynamic)
     print(type_hint_decimal)
